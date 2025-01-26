@@ -1,0 +1,9 @@
+region              = "us-east-1"
+allocated_storage   = 20
+engine_version      = "8.4.3"
+instance_class      = "db.t3.micro"
+db_name             = "hackatondb"
+username            = "admin"
+password            = "6Jqwt89TkkR"
+subnet_ids          = ["subnet-04439f5d3781c56af", "subnet-025ccf492c3ac5ee1"]
+allowed_cidr_blocks = ["192.168.1.0/24"]
