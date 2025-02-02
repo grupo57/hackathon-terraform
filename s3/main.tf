@@ -41,7 +41,20 @@ resource "aws_s3_bucket_versioning" "fiap_grupo57_hackathon_zip_versioning" {
   }
 }
 
-# resource "aws_s3_bucket_acl" "fiap_grupo57_hackathon_zip_acl" {
-#   bucket = aws_s3_bucket.fiap_grupo57_hackathon_zip.id
-#   acl    = "public-read"
-# }
+# Bucket hackathon-app-api-deploy-bucket
+
+resource "aws_s3_bucket" "hackathon-app-api-deploy-bucket" {
+  bucket = "hackathon-app-api-deploy-bucket"
+
+  tags = {
+    Name        = "hackathon-app-api-deploy-bucket"
+    Environment = "Dev"
+  }
+}
+
+resource "aws_s3_bucket_versioning" "hackathon-app-api-deploy-bucket_versioning" {
+  bucket = aws_s3_bucket.hackathon-app-api-deploy-bucket.id
+  versioning_configuration {
+    status = "Enabled"
+  }
+}
