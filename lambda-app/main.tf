@@ -28,6 +28,29 @@ resource "aws_iam_policy_attachment" "lambda_basic_exec" {
   policy_arn = "arn:aws:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole"
 }
 
+resource "aws_iam_policy" "lambda_update_policy" {
+  name        = "LambdaUpdatePolicy"
+  description = "Permite atualizar o código da função Lambda"
+  
+  policy = jsonencode({
+    Version = "2012-10-17"
+    Statement = [{
+      Effect = "Allow"
+      Action = [
+        "lambda:UpdateFunctionCode"
+      ]
+      Resource = aws_lambda_function.laravel_api.arn
+    }]
+  })
+}
+
+resource "aws_iam_policy_attachment" "lambda_update_attachment" {
+  name       = "lambda_update_attachment"
+  roles      = [aws_iam_role.lambda_api_exec.name]
+  policy_arn = aws_iam_policy.lambda_update_policy.arn
+}
+
+
 resource "aws_lambda_function" "laravel_api" {
   function_name   = "laravel-api"
   s3_bucket       = "hackathon-app-api-deploy-bucket"

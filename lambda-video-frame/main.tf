@@ -54,11 +54,12 @@ resource "aws_iam_policy" "lambda_policy" {
       },
       {
         Effect = "Allow"
-        Action = ["sqs:ReceiveMessage", "sqs:DeleteMessage", "sqs:GetQueueAttributes"]
+        Action = ["sqs:ReceiveMessage", "sqs:DeleteMessage", "sqs:GetQueueAttributes", "sqs:sendmessage"]
         Resource = [
           aws_sqs_queue.video_queue.arn,
           "arn:aws:s3:::fiap-grupo57-hackathon",
-          "arn:aws:s3:::fiap-grupo57-hackathon-zip"
+          "arn:aws:s3:::fiap-grupo57-hackathon-zip",
+          "arn:aws:sqs:us-east-1:026131848615:video-completed-queue"
         ]
       },
       {
